@@ -1,40 +1,60 @@
-// Receives a base64-encoded audio file from the browser,
-// uploads it to the Replicate Files API, and returns a hosted URL
-// that can be passed to the separation model.
+// Receives base64 audio from browser, uploads to litterbox.catbox.moe
+// Returns a public URL valid 72h that Replicate can fetch.
+// No API key needed — free public service.
 
 const https = require("https");
 
-const TOKEN = process.env.REPLICATE_API_TOKEN;
+const BOUNDARY = "----SonicSamplerBoundary" + Date.now();
 
-function replicateUpload(buffer, mimeType, filename) {
+function buildMultipart(fileBuffer, filename, mimeType) {
+  const header = [
+    `--${BOUNDARY}`,
+    `Content-Disposition: form-data; name="reqtype"`,
+    "",
+    "fileupload",
+    `--${BOUNDARY}`,
+    `Content-Disposition: form-data; name="time"`,
+    "",
+    "72h",
+    `--${BOUNDARY}`,
+    `Content-Disposition: form-data; name="fileToUpload"; filename="${filename}"`,
+    `Content-Type: ${mimeType}`,
+    "",
+    "",
+  ].join("\r\n");
+
+  const footer = `\r\n--${BOUNDARY}--\r\n`;
+  return Buffer.concat([
+    Buffer.from(header, "utf8"),
+    fileBuffer,
+    Buffer.from(footer, "utf8"),
+  ]);
+}
+
+function postMultipart(body) {
   return new Promise((resolve, reject) => {
     const req = https.request({
-      hostname: "api.replicate.com",
-      path: "/v1/files",
+      hostname: "litterbox.catbox.moe",
+      path: "/resources/internals/api.php",
       method: "POST",
       headers: {
-        "Authorization":       `Token ${TOKEN}`,
-        "Content-Type":        mimeType,
-        "Content-Length":      buffer.length,
-        "Content-Disposition": `attachment; filename="${filename}"`,
+        "Content-Type":   `multipart/form-data; boundary=${BOUNDARY}`,
+        "Content-Length": body.length,
+        "User-Agent":     "SonicSamplerAI/1.0",
       },
     }, res => {
       let raw = "";
       res.on("data", c => raw += c);
-      res.on("end", () => {
-        try { resolve({ status: res.statusCode, data: JSON.parse(raw) }); }
-        catch (e) { reject(new Error("Bad JSON from Replicate: " + raw.slice(0, 200))); }
-      });
+      res.on("end", () => resolve({ status: res.statusCode, body: raw.trim() }));
     });
     req.on("error", reject);
-    req.write(buffer);
+    req.write(body);
     req.end();
   });
 }
 
 exports.handler = async (event) => {
   if (event.httpMethod !== "POST") return { statusCode: 405, body: "Method Not Allowed" };
-  if (!TOKEN) return { statusCode: 500, body: JSON.stringify({ error: "REPLICATE_API_TOKEN not set" }) };
 
   let body;
   try { body = JSON.parse(event.body); } catch { return { statusCode: 400, body: "Bad JSON" }; }
@@ -42,35 +62,28 @@ exports.handler = async (event) => {
   const { data, mimeType = "audio/mpeg", filename = "audio.mp3" } = body;
   if (!data) return { statusCode: 400, body: JSON.stringify({ error: "data (base64) required" }) };
 
-  // Size check — warn if over 20MB base64 (~15MB file)
+  // ~20MB base64 limit (~15MB file)
   if (data.length > 28_000_000) {
-    return {
-      statusCode: 413,
-      body: JSON.stringify({ error: "Archivo demasiado grande. Máximo ~15MB. Usa un fragmento más corto." }),
-    };
+    return { statusCode: 413, body: JSON.stringify({ error: "Archivo demasiado grande. Máximo ~15MB." }) };
   }
 
   try {
-    const buffer = Buffer.from(data, "base64");
-    const result = await replicateUpload(buffer, mimeType, filename);
+    const fileBuffer = Buffer.from(data, "base64");
+    const multipart  = buildMultipart(fileBuffer, filename, mimeType);
+    const result     = await postMultipart(multipart);
 
-    if (result.status !== 201) {
+    // Litterbox returns the URL directly as plain text on success
+    if (result.status === 200 && result.body.startsWith("https://")) {
       return {
-        statusCode: 500,
-        body: JSON.stringify({ error: "Replicate upload failed", detail: result.data }),
+        statusCode: 200,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url: result.body }),
       };
     }
 
-    // Replicate Files API returns { urls: { get: "https://..." }, id, ... }
-    const fileUrl = result.data.urls?.get || result.data.url;
-    if (!fileUrl) {
-      return { statusCode: 500, body: JSON.stringify({ error: "No URL in Replicate response", detail: result.data }) };
-    }
-
     return {
-      statusCode: 200,
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ url: fileUrl, id: result.data.id }),
+      statusCode: 500,
+      body: JSON.stringify({ error: "Upload failed: " + result.body }),
     };
   } catch (err) {
     return { statusCode: 500, body: JSON.stringify({ error: err.message }) };
