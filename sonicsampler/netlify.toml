@@ -4,12 +4,3 @@
 
 [functions]
   node_bundler = "esbuild"
-
-# Allow larger request bodies for audio file uploads (up to 50MB)
-[functions."upload"]
-  node_bundler = "esbuild"
-
-[[headers]]
-  for = "/.netlify/functions/*"
-  [headers.values]
-    Access-Control-Allow-Origin = "*"
