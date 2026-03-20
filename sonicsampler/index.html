@@ -8,34 +8,35 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
 body{background:#07070f;color:#dde2ec;font-family:'SF Mono','Fira Code',monospace;height:100vh;display:flex;flex-direction:column;overflow:hidden;}
-::-webkit-scrollbar{width:4px;height:4px;}
-::-webkit-scrollbar-track{background:#0b0b18;}
-::-webkit-scrollbar-thumb{background:#252540;border-radius:2px;}
+::-webkit-scrollbar{width:4px;height:4px;}::-webkit-scrollbar-track{background:#0b0b18;}::-webkit-scrollbar-thumb{background:#252540;border-radius:2px;}
 
 /* AUTH */
 #auth{position:absolute;inset:0;background:#07070f;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;z-index:100;}
 .alogo{width:64px;height:64px;background:linear-gradient(140deg,#00d4ff,#7c3aed);border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:32px;}
 .atitle{font-family:system-ui,sans-serif;font-size:26px;font-weight:800;background:linear-gradient(90deg,#00d4ff,#bf5af2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-.asub{font-size:13px;color:#2a2a50;font-family:system-ui,sans-serif;text-align:center;max-width:300px;line-height:1.65;}
+.asub{font-size:13px;color:#2a2a50;font-family:system-ui,sans-serif;text-align:center;max-width:310px;line-height:1.65;}
 #aerr{font-size:12px;color:#ff453a;display:none;font-family:system-ui,sans-serif;}
 .abtn{display:flex;align-items:center;gap:10px;padding:14px 28px;background:#1DB954;border:none;border-radius:50px;color:#000;font-size:14px;font-weight:700;font-family:system-ui,sans-serif;cursor:pointer;transition:all .2s;}
 .abtn:hover{transform:scale(1.04);}
 
-/* HEADER — sin botón play */
+/* HEADER */
 #hdr{height:46px;background:#0b0b18;border-bottom:1px solid #1a1a2e;display:flex;align-items:center;padding:0 14px;gap:10px;flex-shrink:0;}
 .hlogo{width:24px;height:24px;background:linear-gradient(140deg,#00d4ff,#7c3aed);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;}
 .htitle{font-family:system-ui,sans-serif;font-size:13px;font-weight:800;letter-spacing:.06em;background:linear-gradient(90deg,#00d4ff,#bf5af2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.sp{flex:1;}
 .badge{display:flex;align-items:center;gap:4px;border-radius:4px;padding:2px 7px;font-size:7.5px;font-family:system-ui,sans-serif;border:1px solid;}
 .bsp{background:rgba(29,185,84,.1);border-color:rgba(29,185,84,.25);color:#1DB954;}
-.sp{flex:1;}
+.bmod{background:rgba(191,90,242,.1);border-color:rgba(191,90,242,.3);color:#bf5af2;font-size:7px;}
 
 /* MAIN */
 #main{flex:1;display:flex;overflow:hidden;min-height:0;}
 
 /* COL A */
-#colA{width:290px;background:#0b0b18;border-right:1px solid #1a1a2e;display:flex;flex-direction:column;flex-shrink:0;}
+#colA{width:295px;background:#0b0b18;border-right:1px solid #1a1a2e;display:flex;flex-direction:column;flex-shrink:0;}
 .shdr{padding:7px 12px 5px;border-bottom:1px solid #0f0f22;}
-.slbl{font-size:8px;font-weight:700;letter-spacing:.13em;font-family:system-ui,sans-serif;display:flex;align-items:center;gap:5px;}
+.slbl{font-size:8px;font-weight:700;letter-spacing:.13em;font-family:system-ui,sans-serif;}
+
+/* SEARCH */
 #sw{padding:7px 11px 5px;position:relative;}
 #srch{width:100%;background:#0f0f20;border:1px solid #1a1a30;border-radius:5px;padding:6px 8px 6px 24px;color:#dde2ec;font-size:9.5px;outline:none;font-family:inherit;}
 #srch:focus{border-color:#00d4ff44;}
@@ -46,27 +47,47 @@ body{background:#07070f;color:#dde2ec;font-family:'SF Mono','Fira Code',monospac
 .dr:hover,.dr.on{background:#141428;}
 
 /* SONG CARD */
-#scard{display:none;padding:0 11px 8px;}
+#scard{display:none;padding:0 11px 7px;}
 .ci{background:#0d0d1e;border:1px solid #181830;border-radius:7px;padding:9px 10px;}
-.ct{display:flex;gap:8px;margin-bottom:8px;align-items:center;}
+.ct{display:flex;gap:8px;margin-bottom:7px;align-items:center;}
 .ca{width:36px;height:36px;border-radius:5px;flex-shrink:0;background:#111;overflow:hidden;}
 .ca img{width:100%;height:100%;object-fit:cover;}
 .cs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px;}
-.cst{background:#090918;border-radius:4px;padding:4px 5px;text-align:center;}
+.cst{background:#090918;border-radius:4px;padding:3px 5px;text-align:center;}
 .csl{font-size:7px;color:#1a1a38;letter-spacing:.1em;}
-.csv{font-size:11px;font-weight:700;color:#00d4ff;font-family:system-ui,sans-serif;}
+.csv{font-size:10px;font-weight:700;color:#00d4ff;font-family:system-ui,sans-serif;}
+
+/* UPLOAD ZONE */
+#upload-section{padding:8px 11px;flex-shrink:0;}
+.upload-label{font-size:7.5px;color:#2a2a50;font-family:system-ui,sans-serif;margin-bottom:5px;letter-spacing:.08em;}
+#drop-zone{border:1.5px dashed #1a1a35;border-radius:8px;padding:16px 12px;text-align:center;cursor:pointer;transition:all .2s;background:#090918;position:relative;}
+#drop-zone:hover,#drop-zone.drag{border-color:#bf5af2;background:rgba(191,90,242,.05);}
+#drop-zone.drag{border-style:solid;}
+#drop-zone input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+.dz-icon{font-size:22px;margin-bottom:6px;}
+.dz-title{font-size:10px;font-weight:700;color:#4a4a6a;font-family:system-ui,sans-serif;}
+.dz-sub{font-size:8px;color:#252545;font-family:system-ui,sans-serif;margin-top:3px;}
+#file-status{display:none;margin-top:7px;}
+.fs-inner{background:#0d0d1e;border:1px solid #1a1a2e;border-radius:6px;padding:8px 10px;display:flex;align-items:center;gap:8px;}
+.fs-icon{font-size:18px;flex-shrink:0;}
+.fs-name{font-size:9px;font-family:system-ui,sans-serif;color:#dde2ec;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.fs-size{font-size:8px;color:#303060;}
+#upload-progress{display:none;margin-top:6px;}
+.up-bar-bg{background:#0c0c1c;border-radius:3px;height:3px;overflow:hidden;}
+#up-bar{height:100%;width:0%;background:linear-gradient(90deg,#7c3aed,#bf5af2);border-radius:3px;transition:width .2s;}
+.up-label{font-size:8px;color:#bf5af2;margin-top:3px;font-family:system-ui,sans-serif;}
 
 /* WAVEFORM */
 #ww{flex:1;padding:6px 11px 8px;display:flex;flex-direction:column;min-height:0;}
 .whdr{font-size:7px;color:#1a1a38;letter-spacing:.09em;margin-bottom:4px;display:flex;justify-content:space-between;}
 #wt{color:#00d4ff;font-size:7px;}
-#wbox{flex:1;min-height:70px;background:#090918;border-radius:5px;border:1px solid #181830;overflow:hidden;position:relative;cursor:crosshair;}
+#wbox{flex:1;min-height:55px;background:#090918;border-radius:5px;border:1px solid #181830;overflow:hidden;position:relative;cursor:crosshair;}
 #wcv{width:100%;height:100%;display:none;}
-#we{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;}
+#we{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;}
 #wri{display:none;margin-top:3px;justify-content:space-between;align-items:center;}
 
-/* PLAYBACK BAR */
-#pbw{display:none;background:#0c0c1e;border-top:1px solid #0f0f22;padding:7px 11px;flex-shrink:0;}
+/* PLAYBACK */
+#pbw{display:none;background:#0c0c1e;border-top:1px solid #0f0f22;padding:6px 11px;flex-shrink:0;}
 #pbn{font-size:9px;font-family:system-ui,sans-serif;color:#dde2ec;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 #pba{font-size:8px;color:#303060;margin:1px 0 5px;}
 .pbr{display:flex;align-items:center;gap:8px;}
@@ -87,31 +108,32 @@ body{background:#07070f;color:#dde2ec;font-family:'SF Mono','Fira Code',monospac
 .pbg{background:#0c0c1c;border-radius:3px;height:3px;overflow:hidden;}
 #pf{height:100%;width:0%;background:linear-gradient(90deg,#7c3aed,#bf5af2,#00d4ff);border-radius:3px;transition:width .04s linear;}
 
-/* STEM CARDS */
-#stw{flex:1;padding:8px 14px;overflow:hidden;display:flex;flex-direction:column;}
-#stg{display:none;grid-template-columns:1fr 1fr;gap:7px;overflow:auto;flex:1;}
-.stc{background:#0c0c1a;border:1px solid #141428;border-radius:9px;padding:10px;transition:all .17s;}
-.stt{display:flex;align-items:center;gap:6px;margin-bottom:5px;}
+/* STEM GRID — 3 columns for 6 stems */
+#stw{flex:1;padding:8px 14px;overflow:hidden;display:flex;flex-direction:column;gap:5px;}
+#stg{display:none;grid-template-columns:1fr 1fr 1fr;gap:6px;overflow:auto;flex:1;}
+.stc{background:#0c0c1a;border:1px solid #141428;border-radius:9px;padding:9px;transition:all .17s;}
+.stt{display:flex;align-items:center;gap:5px;margin-bottom:4px;}
 .std{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
-.stn{font-size:9.5px;font-weight:700;letter-spacing:.1em;font-family:system-ui,sans-serif;}
-/* Real spectrum bars — per-stem frequency shape */
-.spectro{display:flex;align-items:flex-end;gap:1.5px;height:48px;margin-bottom:8px;}
-.sb{flex-shrink:0;border-radius:1px 1px 0 0;transition:height .06s ease;}
-/* STEM ACTIONS */
-.st-acts{display:flex;gap:5px;flex-wrap:wrap;}
-.st-btn{padding:4px 9px;border-radius:4px;border:1px solid;font-size:8px;font-family:system-ui,sans-serif;cursor:pointer;background:transparent;transition:all .15s;display:flex;align-items:center;gap:4px;}
+.stn{font-size:9px;font-weight:700;letter-spacing:.1em;font-family:system-ui,sans-serif;}
+.stfreq{font-size:6.5px;margin-bottom:5px;}
+/* Spectro */
+.spectro{display:flex;align-items:flex-end;gap:1.5px;height:40px;margin-bottom:7px;}
+.sb{flex-shrink:0;width:2.5px;border-radius:1px 1px 0 0;transition:height .06s ease;}
+/* Actions */
+.st-acts{display:flex;gap:4px;flex-wrap:wrap;}
+.st-btn{padding:3px 8px;border-radius:4px;border:1px solid;font-size:7.5px;font-family:system-ui,sans-serif;cursor:pointer;background:transparent;transition:all .15s;}
 .st-btn:hover{opacity:.8;}
 .st-btn:active{transform:scale(.97);}
-/* EXPORT BUTTON — prominent, shown when stem loaded */
-.st-export{padding:5px 11px;border-radius:5px;font-size:9px;font-weight:700;font-family:system-ui,sans-serif;cursor:pointer;background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.35);color:#22c55e;display:none;align-items:center;gap:5px;text-decoration:none;transition:all .2s;width:100%;justify-content:center;margin-top:6px;}
+/* EXPORT — big green button when stem is active */
+.st-export{display:none;width:100%;margin-top:5px;padding:6px 0;border-radius:5px;font-size:9px;font-weight:700;font-family:system-ui,sans-serif;cursor:pointer;background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.35);color:#22c55e;text-decoration:none;text-align:center;transition:all .2s;}
 .st-export:hover{background:rgba(34,197,94,.18);}
-.st-export.visible{display:flex;}
+.st-export.show{display:block;}
 
-#stempty{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;color:#181830;}
+#stempty{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;color:#181830;}
 
 /* PIANO */
 #pmod{background:#08080e;border-top:1px solid #1a1a2e;flex-shrink:0;}
-#phdr{padding:5px 13px 4px;display:flex;align-items:center;gap:9px;border-bottom:1px solid #0e0e1e;}
+#phdr{padding:4px 13px 3px;display:flex;align-items:center;gap:9px;border-bottom:1px solid #0e0e1e;}
 #plbl{font-size:8.5px;font-weight:700;letter-spacing:.13em;font-family:system-ui,sans-serif;color:#0a84ff;}
 #rbdg{display:none;font-size:7px;border-radius:3px;padding:1px 6px;border:1px solid;}
 .oc{display:flex;align-items:center;gap:6px;margin-left:auto;}
@@ -131,8 +153,11 @@ body{background:#07070f;color:#dde2ec;font-family:'SF Mono','Fira Code',monospac
 
 /* TOAST */
 #toast{display:none;position:fixed;bottom:14px;right:14px;z-index:9999;border-radius:9px;padding:13px 15px;min-width:295px;max-width:360px;box-shadow:0 10px 40px rgba(0,0,0,.7);}
+
 @keyframes scanH{from{width:0}to{width:100%}}
 @keyframes pulse{0%,100%{opacity:.45}50%{opacity:1}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 </style>
 </head>
 <body>
@@ -141,21 +166,20 @@ body{background:#07070f;color:#dde2ec;font-family:'SF Mono','Fira Code',monospac
 <div id="auth">
   <div class="alogo">🎧</div>
   <div class="atitle">Sonic Sampler AI</div>
-  <div class="asub">Separa los instrumentos de cualquier canción con IA y úsalos en GarageBand.</div>
+  <div class="asub">Sube cualquier canción en MP3 · IA separa los 6 instrumentos · Úsalos en GarageBand.</div>
   <div id="aerr"></div>
   <button class="abtn" onclick="doLogin()">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
-    Conectar con Spotify Premium
+    Conectar Spotify Premium
   </button>
-  <div style="font-size:11px;color:#1a1a38;font-family:system-ui,sans-serif;">Requiere Spotify Premium</div>
+  <div style="font-size:11px;color:#1a1a38;font-family:system-ui,sans-serif;">Solo para reproducir la canción mientras la separas</div>
 </div>
 
-<!-- HEADER: sin botón play -->
+<!-- HEADER -->
 <div id="hdr">
   <div class="hlogo">🎧</div>
-  <div>
-    <div class="htitle">SONIC SAMPLER AI</div>
-  </div>
+  <div><div class="htitle">SONIC SAMPLER AI</div></div>
+  <div class="badge bmod">htdemucs_6s · 6 stems · 320kbps</div>
   <div class="sp"></div>
   <div class="badge bsp" id="ubdg" style="display:none"></div>
 </div>
@@ -163,34 +187,65 @@ body{background:#07070f;color:#dde2ec;font-family:'SF Mono','Fira Code',monospac
 <!-- MAIN -->
 <div id="main">
 
-<!-- COL A: IMPORT + PLAYBACK -->
+<!-- COL A -->
 <div id="colA">
-  <div class="shdr">
-    <div class="slbl" style="color:#00d4ff">♪ 01 · IMPORT</div>
-  </div>
+  <div class="shdr"><div class="slbl" style="color:#00d4ff">♪ 01 · IMPORT</div></div>
+
+  <!-- SEARCH SPOTIFY -->
   <div id="sw">
     <span style="position:absolute;left:19px;top:50%;transform:translateY(-50%);color:#252545;font-size:11px;pointer-events:none">⌕</span>
     <input id="srch" placeholder="Buscar en Spotify…" oninput="onSearch()" onfocus="openDrop()" onblur="closeDrop()" disabled>
     <div id="dd"></div>
   </div>
 
+  <!-- SONG CARD -->
   <div id="scard">
     <div class="ci">
       <div class="ct">
         <div class="ca"><img id="cimg" style="display:none"></div>
         <div>
-          <div id="cname" style="font-size:10.5px;font-weight:700;color:#dde2ec;font-family:system-ui,sans-serif;"></div>
+          <div id="cname" style="font-size:10px;font-weight:700;color:#dde2ec;font-family:system-ui,sans-serif;"></div>
           <div id="cartist" style="font-size:8px;color:#303060;"></div>
         </div>
       </div>
       <div class="cs">
+        <div class="cst"><div class="csl">DUR</div><div class="csv" id="sdur">—</div></div>
         <div class="cst"><div class="csl">BPM</div><div class="csv" id="sbpm">—</div></div>
         <div class="cst"><div class="csl">TONO</div><div class="csv" id="skey">—</div></div>
-        <div class="cst"><div class="csl">DUR</div><div class="csv" id="sdur">—</div></div>
       </div>
     </div>
   </div>
 
+  <!-- FILE UPLOAD ZONE -->
+  <div id="upload-section">
+    <div class="upload-label">SUBIR AUDIO — MP3, WAV, WEBM, M4A…</div>
+    <div id="drop-zone"
+      ondragover="dzOver(event)"
+      ondragleave="dzLeave()"
+      ondrop="dzDrop(event)"
+    >
+      <input type="file" accept="audio/*,.mp3,.wav,.webm,.m4a,.flac,.ogg" onchange="fileChosen(this.files[0])">
+      <div class="dz-icon">🎵</div>
+      <div class="dz-title">Arrastra el MP3 aquí</div>
+      <div class="dz-sub">o haz clic para seleccionar</div>
+    </div>
+    <div id="file-status">
+      <div class="fs-inner">
+        <span class="fs-icon">🎵</span>
+        <div style="flex:1;min-width:0">
+          <div class="fs-name" id="fs-name">—</div>
+          <div class="fs-size" id="fs-size"></div>
+        </div>
+        <button onclick="clearFile()" style="background:transparent;border:none;color:#303060;cursor:pointer;font-size:14px;flex-shrink:0;">✕</button>
+      </div>
+    </div>
+    <div id="upload-progress">
+      <div class="up-bar-bg"><div id="up-bar"></div></div>
+      <div class="up-label" id="up-label">Subiendo…</div>
+    </div>
+  </div>
+
+  <!-- WAVEFORM -->
   <div id="ww">
     <div class="whdr">
       <span>WAVEFORM · arrastra para seleccionar región</span>
@@ -200,10 +255,10 @@ body{background:#07070f;color:#dde2ec;font-family:'SF Mono','Fira Code',monospac
       <div id="we">
         <div style="display:flex;gap:2px;align-items:flex-end">
           <div style="width:3px;height:8px;background:#111128;border-radius:2px"></div>
-          <div style="width:3px;height:14px;background:#111128;border-radius:2px"></div>
-          <div style="width:3px;height:10px;background:#111128;border-radius:2px"></div>
-          <div style="width:3px;height:18px;background:#111128;border-radius:2px"></div>
-          <div style="width:3px;height:8px;background:#111128;border-radius:2px"></div>
+          <div style="width:3px;height:12px;background:#111128;border-radius:2px"></div>
+          <div style="width:3px;height:9px;background:#111128;border-radius:2px"></div>
+          <div style="width:3px;height:15px;background:#111128;border-radius:2px"></div>
+          <div style="width:3px;height:7px;background:#111128;border-radius:2px"></div>
         </div>
         <span style="font-size:8px;color:#161630">SIN AUDIO</span>
       </div>
@@ -215,10 +270,9 @@ body{background:#07070f;color:#dde2ec;font-family:'SF Mono','Fira Code',monospac
     </div>
   </div>
 
-  <!-- PLAYBACK BAR — único control de reproducción -->
+  <!-- PLAYBACK -->
   <div id="pbw">
-    <div id="pbn">—</div>
-    <div id="pba">—</div>
+    <div id="pbn">—</div><div id="pba">—</div>
     <div class="pbr">
       <button id="pbt" onclick="togglePlay()">▶</button>
       <div class="pbb" onclick="seekTr(event)"><div id="pbp"></div></div>
@@ -228,7 +282,7 @@ body{background:#07070f;color:#dde2ec;font-family:'SF Mono','Fira Code',monospac
   </div>
 </div>
 
-<!-- COL B: AI STEMS -->
+<!-- COL B -->
 <div id="colB">
   <div class="shdr">
     <div class="slbl" style="color:#bf5af2">
@@ -247,19 +301,10 @@ body{background:#07070f;color:#dde2ec;font-family:'SF Mono','Fira Code',monospac
   <div id="stw">
     <div id="stempty">
       <span style="font-size:22px">⊞</span>
-      <span style="font-size:9px;font-family:system-ui,sans-serif" id="emsg">Selecciona una canción y analiza</span>
+      <span style="font-size:9px;font-family:system-ui,sans-serif" id="emsg">Sube un MP3 y pulsa Analizar</span>
+      <span style="font-size:8px;color:#141428;font-family:system-ui,sans-serif">htdemucs_6s · Drums · Bass · Guitar · Piano · Vocals · Other</span>
     </div>
     <div id="stg"></div>
-    <!-- No preview URL message -->
-    <div id="demucs-msg" style="display:none;flex-direction:column;gap:10px;padding:12px;background:#0d0d1e;border:1px solid #1a1a2e;border-radius:8px;margin-top:8px;">
-      <div style="font-size:9px;color:#ff9f0a;font-family:system-ui,sans-serif;font-weight:700;">⚠ Esta cancion no tiene preview de Spotify</div>
-      <div style="font-size:8px;color:#303060;font-family:system-ui,sans-serif;line-height:1.7;">Las BSO e instrumentales a menudo no tienen los 30s de preview que necesita Demucs.<br>Pega la URL directa de un MP3 publico para separar los stems:</div>
-      <div style="display:flex;gap:6px;">
-        <input id="manual-url" placeholder="https://... url de audio mp3" style="flex:1;background:#090918;border:1px solid #1a1a30;border-radius:4px;padding:5px 8px;color:#dde2ec;font-size:9px;outline:none;font-family:monospace;">
-        <button onclick="submitManualUrl()" style="padding:5px 12px;background:rgba(191,90,242,.12);border:1px solid #bf5af244;border-radius:4px;color:#bf5af2;font-size:9px;font-family:system-ui,sans-serif;cursor:pointer;">Analizar</button>
-      </div>
-      <div style="font-size:7.5px;color:#1a1a38;font-family:system-ui,sans-serif;">Alternativa: descarga la cancion con <strong style="color:#252550">yt-dlp</strong> y hostea el mp3 en Google Drive (enlace directo) o en <strong style="color:#252550">tmpfiles.org</strong></div>
-    </div>
   </div>
 </div>
 </div>
@@ -298,22 +343,20 @@ const KEYS=(()=>{const k=[];let wi=0;for(let m=21;m<=108;m++){const ni=m%12,blk=
 const KB={a:0,w:1,s:2,e:3,d:4,f:5,t:6,g:7,y:8,h:9,u:10,j:11,k:12,i:13,l:14,o:15,";":16,p:17};
 function k2m(k){const s=KB[k.toLowerCase()];if(s===undefined)return null;const m=12*(oct+1)+s;return m>=21&&m<=108?m:null;}
 
-/* ═══════ STEMS — etiquetas reales de Demucs htdemucs ═══════ */
-// htdemucs separa en 4: drums, bass, other (=melodía/sintetizadores/guitarra), vocals
-// "piano" es síntesis local de fallback
+/* ═══════ 6 STEMS — htdemucs_6s ═══════ */
 const STEMS=[
-  {id:"drums", label:"Drums",          color:"#ff453a", demucsKey:"drums",  desc:"Batería y percusión",
-   // Espectro: energía concentrada en graves-medios, picos transitorios
-   specShape:[2,4,8,14,18,22,26,28,24,20,18,16,14,12,10,8,7,6,5,4,4,3,3,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2]},
-  {id:"bass",  label:"Bass",           color:"#ff9f0a", demucsKey:"bass",   desc:"Bajo eléctrico/acústico",
-   // Espectro: toda la energía en graves, cae rápido en agudos
-   specShape:[8,18,30,38,42,40,35,28,20,14,10,7,5,4,3,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2]},
-  {id:"other", label:"Melodía / Synth",color:"#30d158", demucsKey:"other",  desc:"Piano, guitarra, synth…",
-   // Espectro: medios-agudos, forma de campana
-   specShape:[3,5,8,12,16,20,25,30,35,38,40,40,38,35,30,26,22,18,15,12,10,8,7,6,5,4,4,3,3,2,2,2,2,2,2,2,2,2]},
-  {id:"vocals",label:"Vocals",         color:"#64d2ff", demucsKey:"vocals", desc:"Voz principal y coros",
-   // Espectro: concentrado en medios 200Hz-3kHz
-   specShape:[2,3,4,6,10,15,20,26,30,34,36,36,34,30,26,22,18,15,12,10,8,6,5,4,3,2,2,2,2,2,2,2,2,2,2,2,2,2]},
+  {id:"drums", label:"Drums",  color:"#ff453a", demucsKey:"drums",  desc:"Batería",
+   specShape:[2,4,8,16,22,28,32,30,26,20,16,12,10,8,6,5,4,3,3,2,2,2,2,2,2,2,2,2,2,2,2,2]},
+  {id:"bass",  label:"Bass",   color:"#ff9f0a", demucsKey:"bass",   desc:"Bajo",
+   specShape:[10,22,38,44,42,36,28,20,14,9,6,4,3,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2]},
+  {id:"guitar",label:"Guitar", color:"#30d158", demucsKey:"guitar", desc:"Guitarra",
+   specShape:[2,4,8,12,18,24,30,36,38,36,32,28,24,20,16,13,10,8,7,6,5,4,3,3,2,2,2,2,2,2,2,2]},
+  {id:"piano", label:"Piano",  color:"#ffd60a", demucsKey:"piano",  desc:"Piano",
+   specShape:[3,6,10,16,22,28,34,38,40,38,34,30,26,22,18,14,11,9,7,6,5,4,3,3,2,2,2,2,2,2,2,2]},
+  {id:"vocals",label:"Vocals", color:"#64d2ff", demucsKey:"vocals", desc:"Voz",
+   specShape:[2,3,5,8,14,20,28,34,36,36,32,28,22,18,14,10,8,6,5,4,3,2,2,2,2,2,2,2,2,2,2,2]},
+  {id:"other", label:"Other",  color:"#bf5af2", demucsKey:"other",  desc:"Resto",
+   specShape:[2,4,6,10,14,18,24,28,32,34,34,32,28,24,20,16,12,10,8,6,5,4,3,3,2,2,2,2,2,2,2,2]},
 ];
 
 /* ═══════ MIDI EXPORT ═══════ */
@@ -339,23 +382,19 @@ function dlFile(data,fn,type){const b=new Blob([data],{type}),u=URL.createObject
 let aToken=null,rToken=null,tExp=0,spPlayer=null,devId=null,pReady=false,curSt=null;
 let song=null,region=null,oct=4;
 let aKeys=new Set(),nLog=[],oNotes={},nStart=Date.now();
-let stemsDone=false;
-let realStems=null;       // {drums:url, bass:url, other:url, vocals:url} from Demucs
-let stemBuf=null;         // AudioBuffer of loaded stem
-let stemStemId=null;      // which stem is active as instrument
-let stemLoading=false;
-let previewAudios={},playingPrev=new Set();
+let stemsDone=false,realStems=null,stemBuf=null,stemStemId=null,stemLoading=false;
+let prevAudios={},playingPrev=new Set();
 let pbInt=null,dTimer=null,wDrag=false,wOrig=0;
 let actx=null,anodes={};
-let specTimer=null;
-// Per-stem random seeds (consistent per session, vary per song)
-let stemSeeds={};
+let specTimer=null,stemSeeds={};
+let uploadedAudioUrl=null; // URL on Replicate after upload
+let uploadedFile=null;     // local File object
 
 /* ═══════ AUTH ═══════ */
 (function(){
   const h=new URLSearchParams(location.hash.slice(1));
   const err=new URLSearchParams(location.search).get("auth_error");
-  if(err){const el=document.getElementById("aerr");el.textContent="Error: "+err+". Inténtalo de nuevo.";el.style.display="block";return;}
+  if(err){const el=document.getElementById("aerr");el.textContent="Error: "+err;el.style.display="block";return;}
   const at=h.get("access_token");
   if(at){aToken=at;rToken=h.get("refresh_token");tExp=Date.now()+(parseInt(h.get("expires_in")||"3600")-60)*1000;history.replaceState(null,"",location.pathname);showApp();}
 })();
@@ -372,6 +411,106 @@ async function showApp(){
   buildPiano();
 }
 
+/* ═══════ FILE UPLOAD ═══════ */
+function fmtBytes(b){if(b<1024*1024)return(b/1024).toFixed(1)+" KB";return(b/1024/1024).toFixed(1)+" MB";}
+
+function fileChosen(file){
+  if(!file)return;
+  uploadedFile=file;uploadedAudioUrl=null;
+  document.getElementById("drop-zone").style.display="none";
+  document.getElementById("file-status").style.display="block";
+  document.getElementById("fs-name").textContent=file.name;
+  document.getElementById("fs-size").textContent=fmtBytes(file.size);
+  if(file.size>20*1024*1024){
+    showToast("error","El archivo es demasiado grande (máx ~15MB). Usa un fragmento más corto.");
+    clearFile();return;
+  }
+  uploadFileToReplicate(file);
+  updAnalyzeBtn();
+}
+
+function clearFile(){
+  uploadedFile=null;uploadedAudioUrl=null;
+  document.getElementById("drop-zone").style.display="block";
+  document.getElementById("file-status").style.display="none";
+  document.getElementById("upload-progress").style.display="none";
+  // Reset file input
+  const inp=document.querySelector("#drop-zone input");if(inp)inp.value="";
+  updAnalyzeBtn();
+}
+
+async function uploadFileToReplicate(file){
+  document.getElementById("upload-progress").style.display="block";
+  document.getElementById("up-bar").style.width="0%";
+  document.getElementById("up-label").textContent="Leyendo archivo…";
+
+  try{
+    // Read file as base64
+    const base64=await new Promise((res,rej)=>{
+      const r=new FileReader();
+      r.onload=e=>res(e.target.result.split(",")[1]);
+      r.onerror=rej;
+      r.readAsDataURL(file);
+    });
+    document.getElementById("up-bar").style.width="30%";
+    document.getElementById("up-label").textContent="Subiendo a Replicate…";
+
+    const resp=await fetch("/.netlify/functions/upload",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({data:base64,mimeType:file.type||"audio/mpeg",filename:file.name}),
+    });
+    document.getElementById("up-bar").style.width="80%";
+
+    const d=await resp.json();
+    if(!resp.ok||d.error){throw new Error(d.error||"Upload failed");}
+
+    uploadedAudioUrl=d.url;
+    document.getElementById("up-bar").style.width="100%";
+    document.getElementById("up-label").textContent="✓ Listo para analizar";
+    document.getElementById("up-label").style.color="#22c55e";
+
+    // Show waveform placeholder
+    document.getElementById("we").style.display="none";
+    document.getElementById("wcv").style.display="block";
+    drawWavePlaceholder();
+    updAnalyzeBtn();
+  }catch(err){
+    document.getElementById("up-label").textContent="⚠ Error: "+err.message;
+    document.getElementById("up-label").style.color="#ff453a";
+    uploadedAudioUrl=null;
+    updAnalyzeBtn();
+  }
+}
+
+function drawWavePlaceholder(){
+  const cv=document.getElementById("wcv"),box=document.getElementById("wbox");
+  cv.width=box.clientWidth;cv.height=box.clientHeight;
+  const c=cv.getContext("2d"),W=cv.width,H=cv.height;c.clearRect(0,0,W,H);
+  // Generate waveform from file name seed
+  const seed=(uploadedFile?.name||"x").split("").reduce((a,ch)=>a+ch.charCodeAt(0),0)*9973;
+  let s=(seed^0xdeadbeef)>>>0;const rng=()=>{s^=s<<13;s^=s>>17;s^=s<<5;return(s>>>0)/4294967296;};
+  const N=600;
+  const pts=Array.from({length:N+1},(_,i)=>{const env=Math.sin((i/N)*Math.PI)*(0.5+0.35*Math.sin((i/N)*Math.PI*4));return(rng()*.5+rng()*.35+rng()*.15)*env;});
+  c.beginPath();c.moveTo(0,H/2);pts.forEach((v,i)=>c.lineTo((i/N)*W,H/2+v*(H/2-4)*.38));c.strokeStyle="rgba(124,58,237,.2)";c.lineWidth=1;c.stroke();
+  const fg=c.createLinearGradient(0,0,0,H);fg.addColorStop(0,"rgba(0,212,255,.07)");fg.addColorStop(1,"transparent");
+  c.beginPath();c.moveTo(0,H/2);pts.forEach((v,i)=>c.lineTo((i/N)*W,H/2-v*(H/2-4)));c.lineTo(W,H/2);c.closePath();c.fillStyle=fg;c.fill();
+  const sg=c.createLinearGradient(0,0,W,0);sg.addColorStop(0,"rgba(0,212,255,.2)");sg.addColorStop(.4,"#7c3aed");sg.addColorStop(.6,"#00d4ff");sg.addColorStop(1,"rgba(0,212,255,.2)");
+  c.beginPath();c.moveTo(0,H/2);pts.forEach((v,i)=>c.lineTo((i/N)*W,H/2-v*(H/2-4)));c.strokeStyle=sg;c.lineWidth=1.4;c.stroke();
+  if(region){
+    const x1=Math.min(region.s,region.e)*W,x2=Math.max(region.s,region.e)*W;
+    c.fillStyle="rgba(0,212,255,.09)";c.fillRect(x1,0,x2-x1,H);
+    c.fillStyle="rgba(0,212,255,.14)";c.fillRect(x1,0,x2-x1,11);
+    c.fillStyle="#00d4ff";c.font="7px monospace";c.fillText("REGIÓN",x1+3,8);
+    [x1,x2].forEach(hx=>{c.strokeStyle="#00d4ff88";c.lineWidth=1.5;c.beginPath();c.moveTo(hx,0);c.lineTo(hx,H);c.stroke();c.beginPath();c.arc(hx,H/2,4,0,Math.PI*2);c.fillStyle="#00d4ff";c.fill();});
+  }
+}
+
+// Drag & drop
+function dzOver(e){e.preventDefault();document.getElementById("drop-zone").classList.add("drag");}
+function dzLeave(){document.getElementById("drop-zone").classList.remove("drag");}
+function dzDrop(e){e.preventDefault();dzLeave();const f=e.dataTransfer.files[0];if(f&&f.type.startsWith("audio"))fileChosen(f);}
+
 /* ═══════ SPOTIFY SDK ═══════ */
 window.onSpotifyWebPlaybackSDKReady=()=>{
   spPlayer=new Spotify.Player({name:"Sonic Sampler AI",getOAuthToken:cb=>{ensureTok().then(cb);},volume:0.8});
@@ -382,20 +521,17 @@ window.onSpotifyWebPlaybackSDKReady=()=>{
 function onPSt(st){
   if(!st)return;curSt=st;
   const tr=st.track_window.current_track;
-  document.getElementById("pbn").textContent=tr.name;
-  document.getElementById("pba").textContent=tr.artists.map(a=>a.name).join(", ");
-  document.getElementById("pbt").textContent=st.paused?"▶":"⏸";
-  document.getElementById("pbw").style.display="block";
-  if(!st.paused){if(!pbInt)pbInt=setInterval(rPB,600);}else{clearInterval(pbInt);pbInt=null;}
-  upPB(st);
+  document.getElementById("pbn").textContent=tr.name;document.getElementById("pba").textContent=tr.artists.map(a=>a.name).join(", ");
+  document.getElementById("pbt").textContent=st.paused?"▶":"⏸";document.getElementById("pbw").style.display="block";
+  if(!st.paused){if(!pbInt)pbInt=setInterval(rPB,600);}else{clearInterval(pbInt);pbInt=null;}upPB(st);
 }
 async function rPB(){if(!spPlayer)return;const st=await spPlayer.getCurrentState();if(st){curSt=st;upPB(st);}}
-function upPB(st){const pos=st.position,dur=st.duration;document.getElementById("pbp").style.width=(dur>0?pos/dur*100:0)+"%";document.getElementById("pbtm").textContent=fmtMs(pos)+" / "+fmtMs(dur);}
+function upPB(st){document.getElementById("pbp").style.width=(st.duration>0?st.position/st.duration*100:0)+"%";document.getElementById("pbtm").textContent=fmtMs(st.position)+" / "+fmtMs(st.duration);}
 function fmtMs(ms){const s=Math.floor(ms/1000),m=Math.floor(s/60);return`${m}:${String(s%60).padStart(2,"0")}`;}
 function fmtS(s){const m=Math.floor(s/60),sc=Math.floor(s%60);return`${m}:${String(sc).padStart(2,"0")}`;}
 function parseDur(str){const[m,s]=str.split(":").map(Number);return m*60+s;}
 async function playTr(uri){
-  if(!pReady){await new Promise(r=>setTimeout(r,2500));if(!pReady){alert("Reproductor no listo aún. Espera y vuelve a pulsar play.");return;}}
+  if(!pReady){await new Promise(r=>setTimeout(r,2500));if(!pReady)return;}
   const tok=await ensureTok();
   await fetch(`https://api.spotify.com/v1/me/player/play?device_id=${devId}`,{method:"PUT",headers:{Authorization:"Bearer "+tok,"Content-Type":"application/json"},body:JSON.stringify({uris:[uri]})});
   document.getElementById("pbw").style.display="block";
@@ -403,8 +539,7 @@ async function playTr(uri){
 async function togglePlay(){
   if(!spPlayer)return;await spPlayer.togglePlay();
   const st=await spPlayer.getCurrentState();if(!st)return;
-  const on=!st.paused;
-  document.getElementById("pbt").textContent=on?"⏸":"▶";
+  document.getElementById("pbt").textContent=!st.paused?"⏸":"▶";
 }
 async function seekTr(e){if(!spPlayer||!curSt)return;const r=e.currentTarget.getBoundingClientRect();await spPlayer.seek(Math.floor(((e.clientX-r.left)/r.width)*curSt.duration));}
 function setVol(v){if(spPlayer)spPlayer.setVolume(v/100);}
@@ -434,127 +569,98 @@ function renderDD(tracks){
   });
   dd.classList.add("open");
 }
-
 function selSong(tr){
-  song={id:tr.id,uri:tr.uri,title:tr.name,artist:tr.artists.map(a=>a.name).join(", "),dur:fmtMs(tr.duration_ms),durMs:tr.duration_ms,img:(tr.album.images[1]||tr.album.images[0])?.url||null,previewUrl:tr.preview_url||null};
+  song={id:tr.id,uri:tr.uri,title:tr.name,artist:tr.artists.map(a=>a.name).join(", "),dur:fmtMs(tr.duration_ms)};
   document.getElementById("srch").value="";document.getElementById("dd").classList.remove("open");
-  // Reset state
-  stemsDone=false;region=null;nLog=[];oNotes={};nStart=Date.now();
-  realStems=null;stemBuf=null;stemStemId=null;stemLoading=false;
-  Object.values(previewAudios).forEach(a=>a.pause());previewAudios={};playingPrev.clear();
-  clearInterval(specTimer);
-  // Unique seed per song for spectro variation
-  stemSeeds={};STEMS.forEach(s=>{stemSeeds[s.id]=tr.id.split("").reduce((a,c,i)=>a+c.charCodeAt(0)*(i+1),0)^(s.id.charCodeAt(0)*997);});
-  document.getElementById("stg").style.display="none";document.getElementById("stg").innerHTML="";
-  document.getElementById("stempty").style.display="flex";document.getElementById("emsg").textContent="Pulsa Analizar Stems";
-  document.getElementById("prw").style.display="none";
-  const dmsg=document.getElementById("demucs-msg");if(dmsg)dmsg.style.display="none";
-  updRegUI();
-  // Song card
-  const img=document.getElementById("cimg");if(song.img){img.src=song.img;img.style.display="block";}else img.style.display="none";
+  const img=document.getElementById("cimg");const imgUrl=(tr.album.images[1]||tr.album.images[0])?.url;
+  if(imgUrl){img.src=imgUrl;img.style.display="block";}else img.style.display="none";
   document.getElementById("cname").textContent=song.title;document.getElementById("cartist").textContent=song.artist;
   document.getElementById("sbpm").textContent="~";document.getElementById("skey").textContent="—";document.getElementById("sdur").textContent=song.dur;
   document.getElementById("scard").style.display="block";
-  document.getElementById("we").style.display="none";document.getElementById("wcv").style.display="block";
-  document.getElementById("abtn").className="ready";document.getElementById("abtn").textContent="⊞ ANALIZAR STEMS";
-  setTimeout(drawWave,40);
   playTr(song.uri);
+  updAnalyzeBtn();
 }
 
-/* ═══════ WAVEFORM ═══════ */
-function mkR(seed){let s=(seed^0xdeadbeef)>>>0;return()=>{s^=s<<13;s^=s>>17;s^=s<<5;return(s>>>0)/4294967296;};}
-function drawWave(){
-  if(!song)return;const cv=document.getElementById("wcv"),box=document.getElementById("wbox");
-  cv.width=box.clientWidth;cv.height=box.clientHeight;const c=cv.getContext("2d"),W=cv.width,H=cv.height;c.clearRect(0,0,W,H);
-  // Seed from song id — different waveform per song
-  const seed=song.id.split("").reduce((a,ch)=>a+ch.charCodeAt(0),0)*9973;
-  const rng=mkR(seed),N=600;
-  const pts=Array.from({length:N+1},(_,i)=>{const env=Math.sin((i/N)*Math.PI)*(0.5+0.35*Math.sin((i/N)*Math.PI*4));return(rng()*.5+rng()*.35+rng()*.15)*env;});
-  c.beginPath();c.moveTo(0,H/2);pts.forEach((v,i)=>c.lineTo((i/N)*W,H/2+v*(H/2-4)*.38));c.strokeStyle="rgba(124,58,237,.2)";c.lineWidth=1;c.stroke();
-  const fg=c.createLinearGradient(0,0,0,H);fg.addColorStop(0,"rgba(0,212,255,.07)");fg.addColorStop(1,"transparent");
-  c.beginPath();c.moveTo(0,H/2);pts.forEach((v,i)=>c.lineTo((i/N)*W,H/2-v*(H/2-4)));c.lineTo(W,H/2);c.closePath();c.fillStyle=fg;c.fill();
-  const sg=c.createLinearGradient(0,0,W,0);sg.addColorStop(0,"rgba(0,212,255,.2)");sg.addColorStop(.4,"#7c3aed");sg.addColorStop(.6,"#00d4ff");sg.addColorStop(1,"rgba(0,212,255,.2)");
-  c.beginPath();c.moveTo(0,H/2);pts.forEach((v,i)=>c.lineTo((i/N)*W,H/2-v*(H/2-4)));c.strokeStyle=sg;c.lineWidth=1.4;c.stroke();
-  if(region){
-    const x1=Math.min(region.s,region.e)*W,x2=Math.max(region.s,region.e)*W;
-    c.fillStyle="rgba(0,212,255,.09)";c.fillRect(x1,0,x2-x1,H);
-    c.fillStyle="rgba(0,212,255,.14)";c.fillRect(x1,0,x2-x1,11);
-    c.fillStyle="#00d4ff";c.font="7px monospace";c.fillText("REGIÓN",x1+3,8);
-    [x1,x2].forEach(hx=>{c.strokeStyle="#00d4ff88";c.lineWidth=1.5;c.beginPath();c.moveTo(hx,0);c.lineTo(hx,H);c.stroke();c.beginPath();c.arc(hx,H/2,4,0,Math.PI*2);c.fillStyle="#00d4ff";c.fill();});
-  }
-}
-function wvD(e){if(!song)return;const r=e.currentTarget.getBoundingClientRect(),ratio=(e.clientX-r.left)/r.width;wDrag=true;wOrig=ratio;region={s:ratio,e:ratio};drawWave();updRegUI();}
-function wvM(e){if(!wDrag||!song)return;const r=e.currentTarget.getBoundingClientRect();region={s:wOrig,e:Math.max(0,Math.min(1,(e.clientX-r.left)/r.width))};drawWave();updRegUI();}
+/* ═══════ REGION ═══════ */
+function wvD(e){if(!uploadedAudioUrl)return;const r=e.currentTarget.getBoundingClientRect(),ratio=(e.clientX-r.left)/r.width;wDrag=true;wOrig=ratio;region={s:ratio,e:ratio};drawWavePlaceholder();updRegUI();}
+function wvM(e){if(!wDrag||!uploadedAudioUrl)return;const r=e.currentTarget.getBoundingClientRect();region={s:wOrig,e:Math.max(0,Math.min(1,(e.clientX-r.left)/r.width))};drawWavePlaceholder();updRegUI();}
 function wvU(){wDrag=false;}
 window.addEventListener("mouseup",()=>{wDrag=false;[...aKeys].forEach(m=>relNote(m));});
-window.addEventListener("resize",()=>{if(song)drawWave();});
-function clrReg(){region=null;drawWave();updRegUI();}
+window.addEventListener("resize",()=>{if(uploadedAudioUrl)drawWavePlaceholder();});
+function clrReg(){region=null;drawWavePlaceholder();updRegUI();}
 function updRegUI(){
-  const wt=document.getElementById("wt"),ri=document.getElementById("wri"),wl=document.getElementById("wlen"),rb=document.getElementById("rbdgB"),rbp=document.getElementById("rbdg"),ab=document.getElementById("abtn");
-  if(region&&Math.abs(region.e-region.s)>0.01&&song){
-    const dur=parseDur(song.dur),from=fmtS(Math.min(region.s,region.e)*dur),to=fmtS(Math.max(region.s,region.e)*dur),len=Math.round(Math.abs(region.e-region.s)*dur);
-    wt.textContent=`${from}→${to}`;ri.style.display="flex";wl.textContent=`${len}s`;rb.style.display="inline";rbp.style.display="inline";rbp.textContent=`${from}→${to}`;
-    if(stemsDone)ab.textContent="⊞ RE-ANALIZAR (REGIÓN)";else if(song)ab.textContent="⊞ ANALIZAR STEMS (REGIÓN)";
+  const rb=document.getElementById("rbdgB"),rbp=document.getElementById("rbdg"),wt=document.getElementById("wt"),ri=document.getElementById("wri"),wl=document.getElementById("wlen"),ab=document.getElementById("abtn");
+  if(region&&Math.abs(region.e-region.s)>0.01){
+    const len=Math.round(Math.abs(region.e-region.s)*100);
+    wt.textContent=`${Math.round(Math.min(region.s,region.e)*100)}%→${Math.round(Math.max(region.s,region.e)*100)}%`;
+    ri.style.display="flex";wl.textContent=`${len}% del archivo`;rb.style.display="inline";rbp.style.display="inline";
+    if(stemsDone&&ab.classList.contains("ready"))ab.textContent="⊞ RE-ANALIZAR (REGIÓN)";
+    else if(uploadedAudioUrl)ab.textContent="⊞ ANALIZAR STEMS (REGIÓN)";
   }else{
     wt.textContent="";ri.style.display="none";rb.style.display="none";rbp.style.display="none";
-    if(stemsDone)ab.textContent="⊞ RE-ANALIZAR";else if(song)ab.textContent="⊞ ANALIZAR STEMS";
-    if(!region)region=null;
+    if(uploadedAudioUrl){ab.textContent=stemsDone?"⊞ RE-ANALIZAR":"⊞ ANALIZAR STEMS";} 
   }
+}
+
+function updAnalyzeBtn(){
+  const ab=document.getElementById("abtn");
+  if(uploadedAudioUrl){ab.className="ready";ab.textContent="⊞ ANALIZAR STEMS";}
+  else{ab.className="";ab.textContent="⊞ ANALIZAR STEMS";}
 }
 
 /* ═══════ ANALYZE ═══════ */
 function analyze(){
-  if(!song)return;stemsDone=false;stemBuf=null;stemStemId=null;
+  if(!uploadedAudioUrl){showToast("warn","Sube un archivo de audio primero.");return;}
+  stemsDone=false;stemBuf=null;stemStemId=null;realStems=null;
   document.getElementById("prw").style.display="block";
   document.getElementById("stg").style.display="none";document.getElementById("stg").innerHTML="";
   document.getElementById("stempty").style.display="none";
   clearInterval(specTimer);
-  const steps=["Cargando Demucs v4…","Análisis FFT…","Separando stems…","Post-procesando…","Listo ✓"];
-  const rl=region?Math.abs(region.e-region.s):1,dur=1800+rl*2200,t0=Date.now();
+  // Reinit seeds
+  stemSeeds={};STEMS.forEach(s=>{stemSeeds[s.id]=(uploadedFile?.name||"x").charCodeAt(0)*997+s.id.charCodeAt(0)*31;});
+  const steps=["Enviando a Demucs…","Análisis espectral…","Separando 6 stems…","Mejorando calidad…","Normalizando…","Listo ✓"];
+  // shifts=5 takes ~60-90s
+  const dur=65000,t0=Date.now();
   const iv=setInterval(()=>{
     const p=Math.min(((Date.now()-t0)/dur)*100,100);
     document.getElementById("pf").style.width=p+"%";document.getElementById("ppct").textContent=Math.round(p)+"%";
     document.getElementById("pstep").textContent=steps[Math.min(Math.floor(p/20),steps.length-1)];
-    if(p>=100){clearInterval(iv);document.getElementById("prw").style.display="none";stemsDone=true;renderStems();}
+    if(p>=100){clearInterval(iv);}
   },40);
-  if(song.previewUrl){ callDemucs(song.previewUrl); } else { setTimeout(()=>{ const el=document.getElementById("demucs-msg"); if(el)el.style.display="flex"; }, 3900); }
-}
-
-/* ═══════ MANUAL URL SUBMIT ═══════ */
-function submitManualUrl(){
-  const url=document.getElementById("manual-url").value.trim();
-  if(!url){alert("Pega una URL de audio primero.");return;}
-  document.getElementById("demucs-msg").style.display="none";
-  callDemucs(url);
+  callDemucs(uploadedAudioUrl,iv);
 }
 
 /* ═══════ DEMUCS ═══════ */
-async function callDemucs(url){
+async function callDemucs(url,progressIv){
   try{
     const r=await fetch("/.netlify/functions/separate",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({audio_url:url})});
     const d=await r.json();
-    if(d.ok&&d.stems){realStems=d.stems;refreshCards();}
+    if(progressIv)clearInterval(progressIv);
+    document.getElementById("pf").style.width="100%";document.getElementById("ppct").textContent="100%";
+    setTimeout(()=>document.getElementById("prw").style.display="none",400);
+    if(d.ok&&d.stems){realStems=d.stems;stemsDone=true;renderStems();}
     else if(d.pending)pollD(d.predId);
-  }catch(e){console.warn("Demucs:",e);}
+    else showToast("error",d.error||"Error en Demucs");
+  }catch(e){
+    if(progressIv)clearInterval(progressIv);
+    document.getElementById("prw").style.display="none";
+    showToast("error","Error de conexión: "+e.message);
+    document.getElementById("stempty").style.display="flex";
+  }
 }
 async function pollD(id,n=0){
-  if(n>20)return;await new Promise(r=>setTimeout(r,4000));
+  if(n>30)return;await new Promise(r=>setTimeout(r,4000));
   try{const r=await fetch(`/.netlify/functions/separate?poll=${id}`),d=await r.json();
-    if(d.status==="succeeded"&&d.stems){realStems=d.stems;refreshCards();}
-    else if(d.status!=="failed")pollD(id,n+1);
+    if(d.status==="succeeded"&&d.stems){realStems=d.stems;stemsDone=true;renderStems();}
+    else if(d.status==="failed"){showToast("error",d.error||"Demucs falló");}
+    else pollD(id,n+1);
   }catch{}
 }
 
-/* ═══════ SPECTRUM ANIMATION ═══════
-   Each stem gets a frequency-shaped spectrum based on its real-world characteristics.
-   The animation adds small random variation on top so it feels alive,
-   but the shape stays true to the stem type.
-*/
-function mkRngSpec(seed){let s=(seed^0xf00d)>>>0;return()=>{s^=s<<13;s^=s>>17;s^=s<<5;return(s>>>0)/4294967296;};}
-
+/* ═══════ SPECTRUM ═══════ */
+function mkRF(s){let ss=(s^0xf00d)>>>0;return()=>{ss^=ss<<13;ss^=ss>>17;ss^=ss<<5;return(ss>>>0)/4294967296;};}
 function startSpec(){
   clearInterval(specTimer);
-  const rng=mkRngSpec(Date.now());
   specTimer=setInterval(()=>{
     if(!stemsDone)return;
     const t=Date.now()/1000;
@@ -562,30 +668,26 @@ function startSpec(){
       const el=document.getElementById("sp"+inst.id);if(!el)return;
       const isActive=stemStemId===inst.id;
       const bars=el.querySelectorAll(".sb");
+      const seed2=stemSeeds[inst.id]||1;
       bars.forEach((bar,i)=>{
         const base=inst.specShape[i]||2;
-        // Variation: use per-song seed + time + bar index for organic movement
-        const seed2=stemSeeds[inst.id]||1;
-        // Pseudo-random oscillation using sin at different frequencies per bar
-        // Strong oscillation — clearly visible movement per bar
         const osc=Math.sin(t*(1.2+i*0.11)+seed2*0.01+i*0.5)*0.55
                  +Math.sin(t*(2.1+i*0.07)+i*1.3)*0.3
                  +Math.sin(t*(0.5+i*0.04)+seed2*0.003)*0.15;
-        const h=Math.max(2,Math.min(46,base*(1+osc)*(isActive?1.4:0.7)));
+        const h=Math.max(2,Math.min(38,base*(1+osc)*(isActive?1.4:0.65)));
         bar.style.height=h.toFixed(1)+"px";
-        bar.style.opacity=isActive?"1":"0.55";
+        bar.style.opacity=isActive?"1":"0.5";
       });
     });
   },65);
 }
 
-/* ═══════ RENDER STEM CARDS ═══════ */
+/* ═══════ STEM CARDS ═══════ */
 function renderStems(){
   const g=document.getElementById("stg");g.innerHTML="";
   STEMS.forEach(inst=>{
     const card=document.createElement("div");card.className="stc";card.id="stcard-"+inst.id;
-    card.innerHTML=buildCard(inst);
-    g.appendChild(card);
+    card.innerHTML=buildCard(inst);g.appendChild(card);
   });
   g.style.display="grid";document.getElementById("stempty").style.display="none";
   startSpec();
@@ -594,113 +696,90 @@ function renderStems(){
 function buildCard(inst){
   const hasReal=realStems&&realStems[inst.demucsKey];
   const isLoaded=stemStemId===inst.id;
-  // Spectrum bars — 38 bars with per-stem shape
-  const specBars=inst.specShape.map((h,i)=>`<div class="sb" style="width:${i<20?'3px':'2.5px'};height:${h}px;background:${inst.color}${isLoaded?'':'88'};"></div>`).join("");
-  // Actions
+  const specBars=inst.specShape.map((h,i)=>`<div class="sb" style="height:${h}px;background:${inst.color}${isLoaded?"":"66"};"></div>`).join("");
   let acts="";
   if(hasReal){
     const url=realStems[inst.demucsKey];
-    const fname=`${(song?.title||"stem").replace(/[^a-z0-9]/gi,"_")}_${inst.id}.mp3`;
-    acts=`
-      <div class="st-acts">
-        <button class="st-btn" id="prevbtn-${inst.id}" style="color:${inst.color};border-color:${inst.color}44;" onclick="togPrev('${inst.id}','${url}')">▶ Preview</button>
-        <button class="st-btn" id="loadbtn-${inst.id}" style="color:${isLoaded?'#22c55e':'#dde2ec'};border-color:${isLoaded?'rgba(34,197,94,.4)':inst.color+'44'};background:${isLoaded?'rgba(34,197,94,.08)':'transparent'};" onclick="loadStem('${inst.id}','${url}')">
-          ${isLoaded?"🎹 Activo":"🎹 Usar en piano"}
-        </button>
-      </div>
-      <!-- EXPORT BUTTON — visible when this stem is the active instrument -->
-      <a class="st-export${isLoaded?" visible":""}" href="${url}" download="${fname}">
-        ↓ Descargar para GarageBand
-      </a>`;
-  }else{
-    acts=`<div style="font-size:8px;color:#303060;font-family:system-ui,sans-serif;padding:4px 0;">Esperando Demucs…</div>`;
-  }
-  return `
-    <div class="stt">
-      <div class="std" style="background:${inst.color};${isLoaded?`box-shadow:0 0 7px ${inst.color};animation:pulse 1.5s ease infinite`:""};"></div>
-      <span class="stn" style="color:${inst.color}">${inst.label.toUpperCase()}</span>
-      ${isLoaded?`<span style="margin-left:auto;font-size:7px;color:#22c55e">● ACTIVO</span>`:""}
+    const fname=`${(uploadedFile?.name||"stem").replace(/\.[^.]+$/,"")}_${inst.id}.mp3`;
+    acts=`<div class="st-acts">
+      <button class="st-btn" id="prevbtn-${inst.id}" style="color:${inst.color};border-color:${inst.color}44;" onclick="togPrev('${inst.id}','${url}')">▶ Preview</button>
+      <button class="st-btn" id="loadbtn-${inst.id}" style="color:${isLoaded?"#22c55e":"#dde2ec"};border-color:${isLoaded?"rgba(34,197,94,.4)":inst.color+"44"};background:${isLoaded?"rgba(34,197,94,.08)":"transparent"};" onclick="loadStem('${inst.id}','${url}')">
+        ${isLoaded?"🎹 Activo":"🎹 Piano"}
+      </button>
     </div>
-    <div style="font-size:7px;color:${inst.color}55;margin-bottom:6px;font-family:system-ui,sans-serif;">${inst.desc}</div>
-    <div class="spectro" id="sp${inst.id}">${specBars}</div>
-    ${acts}`;
+    <a class="st-export${isLoaded?" show":""}" href="${url}" download="${fname}">↓ Descargar para GarageBand</a>`;
+  }else{
+    acts=`<div style="font-size:7.5px;color:#252545;font-family:system-ui,sans-serif;padding:3px 0;">Procesando…</div>`;
+  }
+  return `<div class="stt">
+    <div class="std" style="background:${inst.color};${isLoaded?`box-shadow:0 0 7px ${inst.color};animation:pulse 1.5s ease infinite`:""};"></div>
+    <span class="stn" style="color:${inst.color}">${inst.label.toUpperCase()}</span>
+    ${isLoaded?`<span style="margin-left:auto;font-size:6.5px;color:#22c55e">● ON</span>`:""}
+  </div>
+  <div class="stfreq" style="color:${inst.color}55">${inst.desc}</div>
+  <div class="spectro" id="sp${inst.id}">${specBars}</div>
+  ${acts}`;
 }
 
-function refreshCards(){
-  STEMS.forEach(inst=>{
-    const c=document.getElementById("stcard-"+inst.id);
-    if(c)c.innerHTML=buildCard(inst);
-  });
-}
+function refreshCards(){STEMS.forEach(inst=>{const c=document.getElementById("stcard-"+inst.id);if(c)c.innerHTML=buildCard(inst);});}
 
 /* ═══════ PREVIEW ═══════ */
 function togPrev(id,url){
   const btn=document.getElementById("prevbtn-"+id);
-  if(playingPrev.has(id)){previewAudios[id]?.pause();playingPrev.delete(id);if(btn)btn.textContent="▶ Preview";}
-  else{
-    if(!previewAudios[id])previewAudios[id]=new Audio(url);
-    previewAudios[id].play();playingPrev.add(id);if(btn)btn.textContent="⏹ Stop";
-    previewAudios[id].onended=()=>{playingPrev.delete(id);if(btn)btn.textContent="▶ Preview";};
-  }
+  if(playingPrev.has(id)){prevAudios[id]?.pause();playingPrev.delete(id);if(btn)btn.textContent="▶ Preview";}
+  else{if(!prevAudios[id])prevAudios[id]=new Audio(url);prevAudios[id].play();playingPrev.add(id);if(btn)btn.textContent="⏹ Stop";
+    prevAudios[id].onended=()=>{playingPrev.delete(id);if(btn)btn.textContent="▶ Preview";};}
 }
 
 /* ═══════ LOAD STEM AS INSTRUMENT ═══════ */
 async function loadStem(stemId,url){
   if(stemLoading)return;stemLoading=true;
-  const btn=document.getElementById("loadbtn-"+stemId);
-  if(btn){btn.textContent="⏳ Cargando…";btn.disabled=true;}
+  const btn=document.getElementById("loadbtn-"+stemId);if(btn){btn.textContent="⏳…";btn.disabled=true;}
   try{
     const ac=getCtx();
     const proxyUrl=`/.netlify/functions/proxy?url=${encodeURIComponent(url)}`;
-    const resp=await fetch(proxyUrl);
-    if(!resp.ok)throw new Error("proxy "+resp.status);
+    const resp=await fetch(proxyUrl);if(!resp.ok)throw new Error("proxy "+resp.status);
     const buf=await resp.arrayBuffer();
-    stemBuf=await ac.decodeAudioData(buf);
-    stemStemId=stemId;
+    stemBuf=await ac.decodeAudioData(buf);stemStemId=stemId;
     const inst=STEMS.find(i=>i.id===stemId);
-    // Update piano header color
-    document.getElementById("plbl").style.color=inst.color;
-    document.getElementById("oval").style.color=inst.color;
+    document.getElementById("plbl").style.color=inst.color;document.getElementById("oval").style.color=inst.color;
     refreshCards();
-    showToast("loaded",{label:inst.label,color:inst.color,song:song?.title,stemId,url,fname:`${(song?.title||"stem").replace(/[^a-z0-9]/gi,"_")}_${stemId}.mp3`});
-  }catch(err){
-    console.error(err);stemBuf=null;stemStemId=null;
-    if(btn){btn.textContent="⚠ Error";btn.disabled=false;}
-  }
+    showToast("loaded",{label:inst.label,color:inst.color,fname:`${(uploadedFile?.name||"stem").replace(/\.[^.]+$/,"")}_${stemId}.mp3`});
+  }catch(err){console.error(err);stemBuf=null;stemStemId=null;if(btn){btn.textContent="⚠ Error";btn.disabled=false;}}
   stemLoading=false;
 }
 
 /* ═══════ TOAST ═══════ */
 function showToast(type,info){
   const t=document.getElementById("toast");
+  if(type==="error"){
+    t.style.cssText="display:block;background:#140707;border:1px solid rgba(255,69,58,.3);position:fixed;bottom:14px;right:14px;z-index:9999;border-radius:9px;padding:13px 15px;min-width:280px;box-shadow:0 10px 40px rgba(0,0,0,.7);";
+    t.innerHTML=`<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;font-size:10px;font-weight:700;color:#ff453a;font-family:system-ui,sans-serif;">⚠ ${typeof info==="string"?info:"Error"}</div><div style="margin-top:6px;height:2px;background:#200a0a;border-radius:1px;overflow:hidden"><div style="height:100%;background:#ff453a;animation:scanH 5s linear forwards"></div></div>`;
+    setTimeout(()=>t.style.display="none",5200);return;
+  }
+  if(type==="warn"){
+    t.style.cssText="display:block;background:#141007;border:1px solid rgba(255,159,10,.3);position:fixed;bottom:14px;right:14px;z-index:9999;border-radius:9px;padding:13px 15px;min-width:280px;box-shadow:0 10px 40px rgba(0,0,0,.7);";
+    t.innerHTML=`<div style="font-size:10px;font-weight:700;color:#ff9f0a;font-family:system-ui,sans-serif;">⚠ ${info}</div><div style="margin-top:8px;height:2px;background:#181007;border-radius:1px;overflow:hidden"><div style="height:100%;background:#ff9f0a;animation:scanH 4s linear forwards"></div></div>`;
+    setTimeout(()=>t.style.display="none",4200);return;
+  }
   if(type==="loaded"){
-    t.style.cssText=`display:block;background:#060e0d;border:1px solid ${info.color}55;position:fixed;bottom:14px;right:14px;z-index:9999;border-radius:9px;padding:13px 15px;min-width:300px;max-width:360px;box-shadow:0 10px 40px rgba(0,0,0,.7);`;
-    t.innerHTML=`
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
-        <div style="width:10px;height:10px;border-radius:50%;background:${info.color};box-shadow:0 0 8px ${info.color};flex-shrink:0"></div>
-        <span style="font-size:10px;font-weight:700;font-family:system-ui,sans-serif;color:${info.color}">${info.label} cargado · toca el piano</span>
+    t.style.cssText=`display:block;background:#060e0d;border:1px solid ${info.color}55;position:fixed;bottom:14px;right:14px;z-index:9999;border-radius:9px;padding:13px 15px;min-width:295px;max-width:355px;box-shadow:0 10px 40px rgba(0,0,0,.7);`;
+    t.innerHTML=`<div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;"><div style="width:10px;height:10px;border-radius:50%;background:${info.color};box-shadow:0 0 8px ${info.color};flex-shrink:0"></div><span style="font-size:10px;font-weight:700;font-family:system-ui,sans-serif;color:${info.color}">${info.label} cargado · toca el piano</span></div>
+    <div style="background:#040c0a;border:1px solid ${info.color}22;border-radius:6px;padding:9px 10px;">
+      <div style="font-size:7px;color:${info.color};font-weight:700;font-family:system-ui,sans-serif;letter-spacing:.08em;margin-bottom:5px;">IMPORTAR EN GARAGEBAND →</div>
+      <div style="font-size:7.5px;color:#2a3a35;font-family:system-ui,sans-serif;line-height:2;">
+        <strong style="color:#3a6a5a">1.</strong> Pulsa ↓ Descargar para GarageBand en la card<br>
+        <strong style="color:#3a6a5a">2.</strong> GarageBand → nuevo proyecto → Quick Sampler<br>
+        <strong style="color:#3a6a5a">3.</strong> Arrastra el .mp3 al Quick Sampler ✓
       </div>
-      <div style="font-size:8px;color:#2a4a42;font-family:system-ui,sans-serif;line-height:2;">
-        El piano reproduce el stem real de la canción.<br>
-        Pulsa <strong style="color:#5aaa8a">↓ Descargar para GarageBand</strong> en la card.
-      </div>
-      <div style="margin-top:10px;background:#040c0a;border:1px solid ${info.color}22;border-radius:6px;padding:8px 10px;">
-        <div style="font-size:7px;color:${info.color};font-weight:700;font-family:system-ui,sans-serif;letter-spacing:.08em;margin-bottom:5px;">IMPORTAR EN GARAGEBAND →</div>
-        <div style="font-size:7.5px;color:#2a3a35;font-family:system-ui,sans-serif;line-height:2;">
-          <strong style="color:#3a6a5a">1.</strong> Descarga el .mp3 desde la card<br>
-          <strong style="color:#3a6a5a">2.</strong> GarageBand → Instrumentos → Quick Sampler<br>
-          <strong style="color:#3a6a5a">3.</strong> Arrastra el .mp3 al Quick Sampler<br>
-          <strong style="color:#3a6a5a">4.</strong> ${info.label} mapeado en todo el teclado ✓
-        </div>
-      </div>
-      <div style="margin-top:8px;height:2px;background:#040c0a;border-radius:1px;overflow:hidden"><div style="height:100%;background:${info.color};animation:scanH 12s linear forwards"></div></div>`;
+    </div>
+    <div style="margin-top:8px;height:2px;background:#040c0a;border-radius:1px;overflow:hidden"><div style="height:100%;background:${info.color};animation:scanH 12s linear forwards"></div></div>`;
     setTimeout(()=>t.style.display="none",12500);
   }
 }
 
 /* ═══════ AUDIO ENGINE ═══════ */
 function getCtx(){if(!actx)actx=new(window.AudioContext||window.webkitAudioContext)();if(actx.state==="suspended")actx.resume();return actx;}
-function getBias(){if(!region)return 1;return 0.7+((region.s+region.e)/2)*0.8;}
 const STEM_BASE_MIDI=60;
 
 function playNote(midi,freq){
@@ -708,33 +787,25 @@ function playNote(midi,freq){
   const ac=getCtx();
   if(anodes[midi]){try{anodes[midi].g.gain.setTargetAtTime(0.001,ac.currentTime,.02);}catch{}}
   const g=ac.createGain();g.connect(ac.destination);
-
   if(stemBuf&&stemStemId){
-    // Real stem pitched to key
     const rate=Math.pow(2,(midi-STEM_BASE_MIDI)/12);
     const src=ac.createBufferSource();src.buffer=stemBuf;src.playbackRate.value=rate;src.connect(g);
     g.gain.setValueAtTime(0.001,ac.currentTime);g.gain.exponentialRampToValueAtTime(0.85,ac.currentTime+.02);
     const noteLen=Math.max(0.3,stemBuf.duration*0.6);
     g.gain.setTargetAtTime(0.001,ac.currentTime+noteLen*.7,.3);
-    src.start();src.stop(ac.currentTime+noteLen+1);
-    anodes[midi]={g,src};
+    src.start();src.stop(ac.currentTime+noteLen+1);anodes[midi]={g,src};
   }else{
-    // Synth fallback — piano timbre
-    const bias=getBias();
+    const bias=1;
     const o1=ac.createOscillator();o1.type="triangle";o1.frequency.value=freq;
     const o2=ac.createOscillator();o2.type="sine";o2.frequency.value=freq*2;
     const o3=ac.createOscillator();o3.type="sine";o3.frequency.value=freq*4;
-    const g2=ac.createGain();g2.gain.value=.14*bias;const g3=ac.createGain();g3.gain.value=.04;
+    const g2=ac.createGain();g2.gain.value=.14;const g3=ac.createGain();g3.gain.value=.04;
     o1.connect(g);o2.connect(g2);g2.connect(g);o3.connect(g3);g3.connect(g);
     g.gain.setValueAtTime(0.001,ac.currentTime);g.gain.exponentialRampToValueAtTime(0.48,ac.currentTime+.01);
     g.gain.exponentialRampToValueAtTime(0.001,ac.currentTime+2.3);
-    [o1,o2,o3].forEach(o=>{o.start();o.stop(ac.currentTime+2.5);});
-    anodes[midi]={g};
+    [o1,o2,o3].forEach(o=>{o.start();o.stop(ac.currentTime+2.5);});anodes[midi]={g};
   }
-
-  aKeys.add(midi);
-  oNotes[midi]={startMs:Date.now()-nStart,velocity:80};
-  renderKey(midi,true);updAnote();
+  aKeys.add(midi);oNotes[midi]={startMs:Date.now()-nStart,velocity:80};renderKey(midi,true);updAnote();
 }
 
 function relNote(midi){
@@ -745,11 +816,8 @@ function relNote(midi){
   renderKey(midi,false);updAnote();
 }
 
-/* ═══════ PIANO BUILD ═══════ */
-function getC(){
-  if(stemStemId){const inst=STEMS.find(i=>i.id===stemStemId);return inst?.color||"#22c55e";}
-  return"#0a84ff";
-}
+/* ═══════ PIANO ═══════ */
+function getC(){if(stemStemId){const inst=STEMS.find(i=>i.id===stemStemId);return inst?.color||"#22c55e";}return"#0a84ff";}
 function buildPiano(){
   const c=document.getElementById("pkeys");c.style.width=PW+"px";c.style.height=WH+"px";c.innerHTML="";
   KEYS.filter(k=>!k.blk).forEach(k=>c.appendChild(mkKey(k)));
